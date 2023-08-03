@@ -1,4 +1,4 @@
-import { Action } from "./App";
+import { Action } from "./reducer";
 import { Dispatch } from "react";
 import {
     addToDo,

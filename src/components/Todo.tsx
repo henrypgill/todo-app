@@ -1,14 +1,6 @@
-import { Action } from "./App";
+import { Action } from "./reducer";
 import { useState } from "react";
-
-export interface ToDoData {
-    id: number;
-    title: string;
-    description: string;
-    created: string; //format dd-mm-yy
-    due: string; //format dd-mm-yy
-    status: string;
-}
+import { ToDoData } from "./ToDoData";
 
 export interface ToDoProps {
     todo: ToDoData;
@@ -18,10 +10,13 @@ export interface ToDoProps {
 export function ToDo({ todo, dispatch }: ToDoProps): JSX.Element {
     const [title, setTitle] = useState<string>(todo.title);
     const [description, setDescription] = useState<string>(todo.description);
-    const [editingTitle, setEditingTitle] = useState<boolean>(false);
-    const [editingDescription, setEditingDescription] =
-        useState<boolean>(false);
-    const [showing, setShowing] = useState<boolean>(false);
+    const [editing, setEditing] = useState<"none" | "title" | "description">(
+        "none"
+    );
+    // const [editingTitle, setEditingTitle] = useState<boolean>(false);
+    // const [editingDescription, setEditingDescription] =
+    //     useState<boolean>(false);
+    const [showing, setShowing] = useState<boolean>(true);
 
     function handleTitleChange(val: string) {
         setTitle(val);
@@ -61,7 +56,7 @@ export function ToDo({ todo, dispatch }: ToDoProps): JSX.Element {
             value: { ...todo, title: title, description: description },
         };
         dispatch(action);
-        setEditingTitle(false);
+        setEditing("none");
     }
     function handleSaveDescription() {
         const action: Action = {
@@ -70,7 +65,7 @@ export function ToDo({ todo, dispatch }: ToDoProps): JSX.Element {
             value: { ...todo, title: title, description: description },
         };
         dispatch(action);
-        setEditingDescription(false);
+        setEditing("none");
     }
 
     function handleToggle() {
@@ -80,7 +75,7 @@ export function ToDo({ todo, dispatch }: ToDoProps): JSX.Element {
     return (
         <div className="todo-card">
             <div className="title-and-button-container">
-                {editingTitle ? (
+                {editing === "title" ? (
                     <input
                         value={title}
                         onChange={(e) => handleTitleChange(e.target.value)}
@@ -88,13 +83,13 @@ export function ToDo({ todo, dispatch }: ToDoProps): JSX.Element {
                         onBlur={handleSaveTitle}
                     ></input>
                 ) : (
-                    <h3 onDoubleClick={() => setEditingTitle(true)}>{title}</h3>
+                    <h3 onDoubleClick={() => setEditing("title")}>{title}</h3>
                 )}
                 <button onClick={handleToggle}>{showing ? "-" : "+"}</button>
             </div>
             {showing && (
                 <div className="todo-info">
-                    {editingDescription ? (
+                    {editing === "description" ? (
                         <input
                             value={description}
                             onChange={(e) =>
@@ -104,10 +99,12 @@ export function ToDo({ todo, dispatch }: ToDoProps): JSX.Element {
                             onBlur={handleSaveDescription}
                         ></input>
                     ) : (
-                        <p onDoubleClick={() => setEditingDescription(true)}>
+                        <p onDoubleClick={() => setEditing("description")}>
                             {description}
                         </p>
                     )}
+                    <h4>created: {todo.created.toTimeString()}</h4>
+                    <h4>due: {todo.due.toTimeString()}</h4>
                     <h4>{todo.status}</h4>
                     <div>
                         <button onClick={handleDelete} className="todo-button">

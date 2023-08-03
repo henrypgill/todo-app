@@ -1,12 +1,36 @@
 import axios from "axios";
-import { ToDoData } from "./Todo";
+import { ToDoData, ServerToDoData } from "./ToDoData";
 
 export async function getData(): Promise<ToDoData[]> {
     const fetchURL = "https://todo-app-lgse.onrender.com/todos/";
     const response = await axios
-        .get<ToDoData[]>(fetchURL)
+        .get<ServerToDoData[]>(fetchURL)
         .then((response) => response.data);
-    return response;
+
+    const returnData = response.map((todo) => {
+        const formattedToDO: ToDoData = {
+            id: todo.id,
+            title: todo.title,
+            description: todo.description,
+            status: todo.status,
+            created: new Date(
+                todo.created[0],
+                todo.created[1],
+                todo.created[2],
+                todo.created[3],
+                todo.created[4]
+            ),
+            due: new Date(
+                todo.due[0],
+                todo.due[1],
+                todo.due[2],
+                todo.due[3],
+                todo.due[4]
+            ),
+        };
+        return formattedToDO;
+    });
+    return returnData;
 }
 
 export async function getToDo(todo: ToDoData) {
