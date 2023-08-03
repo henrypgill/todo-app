@@ -2,8 +2,6 @@ html {
     background: grey;
 }
 
-
-
 .todo-list {
     display: flex;
     max-width: 1440px;
@@ -24,7 +22,6 @@ html {
     border-radius: 4px;
 }
 
-
 .todo-title {
     font-size: 24px;
     border: none;
@@ -35,5 +32,4 @@ html {
 }
 
 .todo-button {
-
 }
