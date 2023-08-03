@@ -1,5 +1,20 @@
-import { Action } from "./App";
-import { ToDoData } from "./Todo";
+import { ToDoData } from "./ToDoData";
+import { compareStatus } from "./utils";
+
+export interface Action {
+    id: number;
+    type:
+        | "complete"
+        | "delete"
+        | "update-title"
+        | "update-description"
+        | "add"
+        | "incomplete"
+        | "sort-status"
+        | "sort-due"
+        | "sort-created";
+    value: ToDoData;
+}
 
 export function reducer(draftState: ToDoData[], action: Action): void {
     const index = draftState.findIndex((todo) => todo.id === action.id);
@@ -10,9 +25,6 @@ export function reducer(draftState: ToDoData[], action: Action): void {
             }
             break;
         case "incomplete":
-            // const index = draftState.findIndex(
-            //     (todo) => todo.id === action.id
-            // );
             if (index !== -1) {
                 draftState[index].status = "incomplete";
             }
@@ -34,6 +46,17 @@ export function reducer(draftState: ToDoData[], action: Action): void {
             if (index === -1) {
                 draftState.push(action.value);
             }
+            break;
+        case "sort-created":
+            draftState.sort(
+                (a, b) => a.created.getTime() - b.created.getTime()
+            );
+            break;
+        case "sort-due":
+            draftState.sort((a, b) => a.due.getTime() - b.due.getTime());
+            break;
+        case "sort-status":
+            draftState.sort((a, b) => compareStatus(a, b));
             break;
     }
 }

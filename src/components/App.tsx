@@ -1,22 +1,12 @@
 import { useEffect } from "react";
 import "./App.css";
-import { ToDo, ToDoData } from "./Todo";
+import { ToDo } from "./Todo";
+import { ToDoData } from "./ToDoData";
 import { useImmerReducer } from "use-immer";
-import { reducer } from "./reducer";
+import { Action, reducer } from "./reducer";
 import { getData } from "./serverUtils";
 import { handleDispatch } from "./handleDispatch";
-
-export interface Action {
-    id: number;
-    type:
-        | "complete"
-        | "delete"
-        | "update-title"
-        | "update-description"
-        | "add"
-        | "incomplete";
-    value: ToDoData;
-}
+import { Header } from "./Header";
 
 function App() {
     const initialData: ToDoData[] = [];
@@ -42,7 +32,7 @@ function App() {
     if (data.length === 0) {
         return (
             <div className="App">
-                <header>Your To-Dos</header>
+                <Header dispatch={dataDispatch} />
                 <div className="loading-container">
                     <h2>loading data</h2>
                 </div>
@@ -52,7 +42,7 @@ function App() {
 
     return (
         <div className="App">
-            <header>Your To-Dos</header>
+            <Header dispatch={dataDispatch} />
             <div className="todo-list">
                 {data.map((data: ToDoData) => (
                     <ToDo
