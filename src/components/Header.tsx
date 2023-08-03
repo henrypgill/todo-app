@@ -30,6 +30,14 @@ export function Header({ dispatch }: HeaderProps): JSX.Element {
         };
         dispatch(action);
     }
+    function handleIDSort() {
+        const action: Action = {
+            id: -1,
+            type: "sort-id",
+            value: emptyToDo(),
+        };
+        dispatch(action);
+    }
 
     return (
         <header>
@@ -52,6 +60,7 @@ export function Header({ dispatch }: HeaderProps): JSX.Element {
             <button onClick={handleCreatedSort}>sort by created date</button>
             <button onClick={handleDueSort}>sort by due date</button>
             <button onClick={handleStatusSort}>sort by status</button>
+            <button onClick={handleIDSort}>sort by number</button>
         </header>
     );
 }
