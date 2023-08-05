@@ -33,7 +33,7 @@ export async function getData(): Promise<ToDoData[]> {
     return returnData;
 }
 
-export async function getToDo(todo: ToDoData) {
+export async function getServerToDo(todo: ToDoData) {
     const fetchURL = `https://todo-app-lgse.onrender.com/todos/${todo.id}`;
     const response = await axios
         .get(fetchURL)
@@ -42,14 +42,14 @@ export async function getToDo(todo: ToDoData) {
     return response;
 }
 
-export async function deleteToDo(todo: ToDoData) {
+export async function deleteServerToDo(todo: ToDoData) {
     const fetchURL = `https://todo-app-lgse.onrender.com/todos/${todo.id}`;
     const response = await axios.delete(fetchURL); //{id: `${todo.id}`}
 
     return response;
 }
 
-export async function updateToDoTitle(todo: ToDoData) {
+export async function updateServerToDoTitle(todo: ToDoData) {
     const fetchURL = `https://todo-app-lgse.onrender.com/todos/${todo.id}`;
     const response = await axios.patch(fetchURL, {
         title: todo.title,
@@ -58,7 +58,7 @@ export async function updateToDoTitle(todo: ToDoData) {
     return response;
 }
 
-export async function updateToDoDescription(todo: ToDoData) {
+export async function updateServerToDoDescription(todo: ToDoData) {
     const fetchURL = `https://todo-app-lgse.onrender.com/todos/${todo.id}`;
     const response = await axios.patch(fetchURL, {
         description: todo.description,
@@ -67,23 +67,32 @@ export async function updateToDoDescription(todo: ToDoData) {
     return response;
 }
 
-export async function completeToDo(todo: ToDoData) {
+export async function completeServerToDo(todo: ToDoData) {
     const fetchURL = `https://todo-app-lgse.onrender.com/todos/${todo.id}`;
     const response = await axios.patch(fetchURL, { status: "complete" });
 
     return response;
 }
 
-export async function incompleteToDo(todo: ToDoData) {
+export async function incompleteServerToDo(todo: ToDoData) {
     const fetchURL = `https://todo-app-lgse.onrender.com/todos/${todo.id}`;
     const response = await axios.patch(fetchURL, { status: "incomplete" });
 
     return response;
 }
 
-export async function addToDo(todo: ToDoData) {
-    const fetchURL = `https://todo-app-lgse.onrender.com/todos/${todo.id}`;
-    const response = await axios.delete(fetchURL).then((response) => response);
+export async function addServerToDo(todo: ToDoData) {
+    const fetchURL = `https://todo-app-lgse.onrender.com/todos`;
+    const response = await axios.post(fetchURL, { ...todo });
+
+    return response;
+}
+
+export async function getNextServerTodoID() {
+    const fetchURL = `https://todo-app-lgse.onrender.com/nextid`;
+    const response = await axios
+        .get<{ id: number }>(fetchURL)
+        .then((response) => response.data.id);
 
     return response;
 }

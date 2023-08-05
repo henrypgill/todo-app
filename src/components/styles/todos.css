@@ -1,0 +1,134 @@
+.todo-list {
+    display: grid;
+    max-width: 1440px;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 48px;
+    grid-auto-rows: 48px;
+    row-gap: 16px;
+    column-gap: 16px;
+}
+
+.todo-card {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    padding: 8px 8px;
+    border-radius: 4px;
+    width: 240px;
+}
+
+.card-complete {
+    background-color: #1d1128;
+    color: #e5d4ed;
+}
+
+.card-incomplete {
+    background-color: #e5d4ed;
+    color: #1d1128;
+}
+
+.card-closed {
+    grid-row: span 1;
+    justify-content: top;
+}
+
+.card-open {
+    grid-row: span 3;
+    justify-content: space-between;
+}
+
+.todo-card h4 {
+    font-size: 12px;
+}
+
+.title-and-button-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+.todo-toggle-button {
+    height: 24px;
+    width: 24px;
+    border: none;
+    background-color: var(--c5);
+    color: var(--c1);
+    border-radius: 8px;
+}
+.card-complete .todo-toggle-button {
+    height: 24px;
+    width: 24px;
+    border: none;
+    background-color: var(--c1);
+    color: var(--c5);
+    border-radius: 8px;
+}
+.card-incomplete .todo-toggle-button {
+    height: 24px;
+    width: 24px;
+    border: none;
+    background-color: var(--c5);
+    color: var(--c1);
+    border-radius: 8px;
+}
+.todo-title {
+    font-size: 24px;
+    border: none;
+}
+.todo-description {
+    font-size: 16px;
+    border: none;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.todo-info {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+
+.todo-text-container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+
+.toDo-buttons-container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    margin-left: 16px;
+}
+
+.todo-info-left {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+}
+
+.todo-info-right {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: right;
+    justify-content: space-between;
+}
+
+.todo-info-right h4 {
+    text-align: right;
+}
+
+.todo-status {
+    cursor: pointer;
+}
+.todo-title-heading {
+    cursor: pointer;
+}
+
+.todo-description-paragraph {
+    cursor: pointer;
+}
