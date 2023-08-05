@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import "./styles/App.css";
 import "./styles/header.css";
 import "./styles/todos.css";
+import "./styles/new-todo.css";
 import { ToDo } from "./Todo";
 import { ToDoData } from "./ToDoData";
 import { useImmerReducer } from "use-immer";

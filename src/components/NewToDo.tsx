@@ -1,15 +1,16 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { ToDoData } from "./ToDoData";
 import { useImmerReducer } from "use-immer";
 import { Action } from "./reducer";
 import { getNextServerTodoID } from "./serverUtils";
+import { DatePicker, DatePickerDate } from "./DatePicker";
 
 interface NewToDoProps {
     handleDispatch(action: Action): void;
 }
 
 interface ToDoAction {
-    field: keyof ToDoData;
+    field: keyof ToDoData | "reset";
     value: ToDoData;
 }
 
@@ -24,6 +25,7 @@ export function NewToDo({ handleDispatch }: NewToDoProps): JSX.Element {
     };
 
     const [todo, dispatchToDo] = useImmerReducer(todoReducer, initialNewToDo);
+    const [date, setDate] = useState<DatePickerDate>([1, 1, 0, 0]);
 
     function todoReducer(draftTodo: ToDoData, todoAction: ToDoAction) {
         switch (todoAction.field) {
@@ -34,10 +36,13 @@ export function NewToDo({ handleDispatch }: NewToDoProps): JSX.Element {
                 draftTodo.description = todoAction.value.description;
                 break;
             case "due":
-                draftTodo.due.setTime(todoAction.value.due.getTime());
+                draftTodo.due = todoAction.value.due;
                 break;
             case "id":
                 draftTodo.id = todoAction.value.id;
+                break;
+            case "reset":
+                draftTodo = initialNewToDo;
                 break;
         }
     }
@@ -69,82 +74,82 @@ export function NewToDo({ handleDispatch }: NewToDoProps): JSX.Element {
         };
         dispatchToDo(action);
     }
-    function handleUpdateDue(field: string, fieldValue: number) {
-        const action: ToDoAction = { field: "title", value: { ...todo } };
-        switch (field) {
-            case "day":
-                action.value.due.setDate(fieldValue);
-                break;
-            case "month":
-                action.value.due.setDate(fieldValue);
-                break;
-            case "hours":
-                action.value.due.setDate(fieldValue);
-                break;
-            case "minutes":
-                action.value.due.setDate(fieldValue);
-                break;
-        }
-        dispatchToDo(action);
-    }
 
     function handleSaveTodo() {
-        console.log("saving todo");
-
+        const newTodoDue = new Date(2023, ...date);
         const todoAction: ToDoAction = {
             field: "id",
-            value: { ...todo, id: todo.id + 1 },
+            value: { ...todo, id: todo.id + 1, due: newTodoDue },
         };
+        console.log(todoAction.value.due.getMonth());
+        console.log(todoAction.value.due.getDate());
+        console.log(todoAction.value.due.getHours());
+        console.log(todoAction.value.due.getMinutes());
         const action: Action = {
             id: todo.id,
             type: "new-todo",
-            value: todo,
+            value: { ...todo, id: todo.id + 1, due: newTodoDue },
         };
         dispatchToDo(todoAction);
         handleDispatch(action); // error here
     }
 
     return (
-        <div className="add-todo-container">
+        <div className="new-todo-container">
+            <h3 className="new-todo-title-label">Title:</h3>
             <input
+                className="new-todo-title-input"
                 value={todo.title}
                 onChange={(e) => handleUpdateTitle(e.target.value)}
             ></input>
+            <h3 className="new-todo-description-label">Description:</h3>
             <input
+                className="new-todo-description-input"
                 value={todo.description}
                 onChange={(e) => handleUpdateDescription(e.target.value)}
             ></input>
-            <div>
-                <input
-                    value={todo.due.getDay()}
-                    onChange={(e) =>
-                        handleUpdateDue("day", parseInt(e.target.value))
-                    }
-                    type="number"
-                ></input>
-                <input
-                    value={todo.due.getMonth()}
-                    onChange={(e) =>
-                        handleUpdateDue("month", parseInt(e.target.value))
-                    }
-                    type="number"
-                ></input>
-                <input
-                    value={todo.due.getHours()}
-                    onChange={(e) =>
-                        handleUpdateDue("hours", parseInt(e.target.value))
-                    }
-                    type="number"
-                ></input>
-                <input
-                    value={todo.due.getMinutes()}
-                    onChange={(e) =>
-                        handleUpdateDue("minutes", parseInt(e.target.value))
-                    }
-                    type="number"
-                ></input>
-            </div>
-            <button onClick={() => handleSaveTodo()}>save</button>
+            <DatePicker date={date} setDate={setDate} />
+            <button
+                onClick={() => handleSaveTodo()}
+                className="new-todo-save-button"
+            >
+                save
+            </button>
         </div>
     );
 }
+/*
+            <h3 className="new-todo-date-label">Date:</h3>
+            <input
+                className="new-todo-day-input"
+                value={todo.due.getDate()}
+                onChange={(e) =>
+                    handleUpdateDue("day", parseInt(e.target.value))
+                }
+            ></input>
+            <input
+                className="new-todo-month-input"
+                value={todo.due.getMonth()}
+                onChange={(e) =>
+                    handleUpdateDue("month", parseInt(e.target.value))
+                }
+            ></input>
+            <h3 className="new-todo-time-label">Time:</h3>
+            <input
+                className="new-todo-hour-input"
+                value={todo.due.getHours()}
+                onChange={(e) =>
+                    handleUpdateDue("hours", parseInt(e.target.value))
+                }
+            ></input>
+            <input
+                className="new-todo-minute-input"
+                value={todo.due.getMinutes()}
+                onChange={(e) =>
+                    handleUpdateDue("minutes", parseInt(e.target.value))
+                }
+            ></input>
+        </div>
+    );
+}
+*/

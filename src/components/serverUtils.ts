@@ -9,24 +9,13 @@ export async function getData(): Promise<ToDoData[]> {
 
     const returnData = response.map((todo) => {
         const formattedToDO: ToDoData = {
-            id: todo.id,
-            title: todo.title,
-            description: todo.description,
-            status: todo.status,
-            created: new Date(
-                todo.created[0],
-                todo.created[1],
-                todo.created[2],
-                todo.created[3],
-                todo.created[4]
-            ),
-            due: new Date(
-                todo.due[0],
-                todo.due[1],
-                todo.due[2],
-                todo.due[3],
-                todo.due[4]
-            ),
+            // id: todo.id,
+            // title: todo.title,
+            // description: todo.description,
+            // status: todo.status,
+            ...todo,
+            created: new Date(todo.created),
+            due: new Date(todo.due),
         };
         return formattedToDO;
     });
@@ -83,7 +72,11 @@ export async function incompleteServerToDo(todo: ToDoData) {
 
 export async function addServerToDo(todo: ToDoData) {
     const fetchURL = `https://todo-app-lgse.onrender.com/todos`;
-    const response = await axios.post(fetchURL, { ...todo });
+    const response = await axios.post(fetchURL, {
+        ...todo,
+        due: todo.due.getTime(),
+        created: todo.due.getTime(),
+    });
 
     return response;
 }

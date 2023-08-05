@@ -12,6 +12,6 @@ export interface ServerToDoData {
     title: string;
     description: string;
     status: "complete" | "incomplete";
-    created: number[];
-    due: number[];
+    created: number;
+    due: number;
 }

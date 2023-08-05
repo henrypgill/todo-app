@@ -47,30 +47,35 @@ export function ToDo({ todo, handleDispatch }: ToDoProps): JSX.Element {
                     setEditing={setEditing}
                     handleDispatch={handleDispatch}
                 />
-                <button className="todo-toggle-button" onClick={handleToggle}>
-                    {showing ? "-" : "+"}
-                </button>
+                <div className="todo-buttons-container">
+                    <button
+                        className="todo-toggle-button"
+                        onClick={handleToggle}
+                    >
+                        {showing ? "-" : "+"}
+                    </button>
+                    <button
+                        onClick={handleDelete}
+                        className="todo-delete-button"
+                    >
+                        🗑️
+                    </button>
+                </div>
             </div>
             {showing && (
+                <ToDoDescription
+                    todo={todo}
+                    editing={editing}
+                    setEditing={setEditing}
+                    handleDispatch={handleDispatch}
+                />
+            )}
+            {showing && (
                 <div className="todo-info">
-                    <div className="todo-info-left">
-                        <ToDoDescription
-                            todo={todo}
-                            editing={editing}
-                            setEditing={setEditing}
-                            handleDispatch={handleDispatch}
-                        />
-                        <ToDoStatus
-                            todo={todo}
-                            handleDispatch={handleDispatch}
-                        />
-                    </div>
-                    <div className="todo-info-right">
+                    <ToDoStatus todo={todo} handleDispatch={handleDispatch} />
+                    <div className="todo-info-dates">
                         <h4>created: {formatDate(todo.created)}</h4>
                         <h4>due: {formatDate(todo.due)}</h4>
-                        <button onClick={handleDelete} className="todo-button">
-                            delete
-                        </button>
                     </div>
                 </div>
             )}
