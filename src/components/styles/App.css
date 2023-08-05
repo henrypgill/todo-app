@@ -1,0 +1,47 @@
+:root {
+    --c1: #e5d4ed;
+    --c2: #6d72c3;
+    --c3: #5941a9;
+    --c4: #514f59;
+    --c5: #1d1128;
+}
+
+html {
+    background: #6d72c3;
+    font-family: "Poppins", sans-serif;
+    font-size: 16px;
+}
+
+body {
+    color: #1d1128;
+}
+
+main {
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+body {
+    margin: 0px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+p {
+    padding: 0px;
+    margin: 0px;
+}
+
+ol,
+ul {
+    /* list-style-type: none; */
+}
+
+button {
+    cursor: pointer;
+}

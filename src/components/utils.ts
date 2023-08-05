@@ -23,3 +23,8 @@ export function emptyToDo(): ToDoData {
     };
     return emptyToDo;
 }
+
+export function formatDate(date: Date) {
+    return date.toLocaleString("en-GB");
+    // return `${date.getDate()}/${date.getMonth()} ${date.getHours()}:${date.getMinutes()}`;
+}

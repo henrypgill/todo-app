@@ -1,41 +1,44 @@
 import { Action } from "./reducer";
 import { Dispatch } from "react";
 import {
-    addToDo,
-    completeToDo,
-    deleteToDo,
-    incompleteToDo,
-    updateToDoTitle,
-    updateToDoDescription,
+    addServerToDo,
+    completeServerToDo,
+    deleteServerToDo,
+    incompleteServerToDo,
+    updateServerToDoTitle,
+    updateServerToDoDescription,
 } from "./serverUtils";
 
-export function handleDispatch(
+export function dispatchHandler(
     dispatch: Dispatch<Action>
 ): (action: Action) => void {
     return (action: Action) => {
         switch (action.type) {
             case "complete":
-                completeToDo(action.value);
+                completeServerToDo(action.value);
                 dispatch(action);
                 break;
             case "incomplete":
-                incompleteToDo(action.value);
+                incompleteServerToDo(action.value);
                 dispatch(action);
                 break;
             case "delete":
-                deleteToDo(action.value);
+                deleteServerToDo(action.value);
                 dispatch(action);
                 break;
             case "update-title":
-                updateToDoTitle(action.value);
+                updateServerToDoTitle(action.value);
                 dispatch(action);
                 break;
             case "update-description":
-                updateToDoDescription(action.value);
+                updateServerToDoDescription(action.value);
                 dispatch(action);
                 break;
-            case "add":
-                addToDo(action.value);
+            case "new-todo":
+                addServerToDo(action.value);
+                dispatch({ ...action, type: "add" });
+                break;
+            default:
                 dispatch(action);
                 break;
         }

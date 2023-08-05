@@ -1,29 +1,28 @@
 import { useEffect } from "react";
-import "./App.css";
+import "./styles/App.css";
+import "./styles/header.css";
+import "./styles/todos.css";
 import { ToDo } from "./Todo";
 import { ToDoData } from "./ToDoData";
 import { useImmerReducer } from "use-immer";
 import { Action, reducer } from "./reducer";
 import { getData } from "./serverUtils";
-import { handleDispatch } from "./handleDispatch";
+import { dispatchHandler } from "./dispatchHandler";
 import { Header } from "./Header";
 
 function App() {
     const initialData: ToDoData[] = [];
 
     const [data, dataDispatch] = useImmerReducer(reducer, initialData);
-    const dispatchHandler = handleDispatch(dataDispatch);
+    const handleDispatch = dispatchHandler(dataDispatch);
 
     useEffect(() => {
         const fetchData = async () => {
-            console.log("fetching");
             // const fetchedToDos = await axios.get<ToDoData[]>("https://todo-app-lgse.onrender.com/todos").then(response => response.data)
             const fetchedToDos = await getData();
-            console.log(fetchedToDos);
             fetchedToDos.forEach((aToDo) =>
-                dataDispatch({ type: "add", id: aToDo.id, value: aToDo })
+                handleDispatch({ type: "add", id: aToDo.id, value: aToDo })
             );
-            console.log("fetched");
         };
         fetchData();
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -32,7 +31,7 @@ function App() {
     if (data.length === 0) {
         return (
             <div className="App">
-                <Header dispatch={dataDispatch} />
+                <Header handleDispatch={handleDispatch} />
                 <div className="loading-container">
                     <h2>loading data</h2>
                 </div>
@@ -41,18 +40,22 @@ function App() {
     }
 
     return (
-        <div className="App">
-            <Header dispatch={dataDispatch} />
-            <div className="todo-list">
-                {data.map((data: ToDoData) => (
-                    <ToDo
-                        key={data.id}
-                        todo={data}
-                        dispatch={(action: Action) => dispatchHandler(action)}
-                    />
-                ))}
-            </div>
-        </div>
+        <>
+            <Header handleDispatch={handleDispatch} />
+            <main className="App">
+                <div className="todo-list">
+                    {data.map((data: ToDoData) => (
+                        <ToDo
+                            key={data.id}
+                            todo={data}
+                            handleDispatch={(action: Action) =>
+                                handleDispatch(action)
+                            }
+                        />
+                    ))}
+                </div>
+            </main>
+        </>
     );
 }
 

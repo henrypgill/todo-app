@@ -13,7 +13,8 @@ export interface Action {
         | "sort-status"
         | "sort-due"
         | "sort-created"
-        | "sort-id";
+        | "sort-id"
+        | "new-todo";
     value: ToDoData;
 }
 
@@ -61,6 +62,11 @@ export function reducer(draftState: ToDoData[], action: Action): void {
             break;
         case "sort-id":
             draftState.sort((a, b) => a.id - b.id);
+            break;
+        case "new-todo":
+            draftState.push(action.value);
+            break;
+        default:
             break;
     }
 }
