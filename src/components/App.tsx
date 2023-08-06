@@ -56,6 +56,18 @@ function App() {
                     ))}
                 </div>
             </main>
+            <footer>
+                <p>
+                    Check out the github repository for the front-end{" "}
+                    <a href="https://github.com/henrypgill/todo-app">here</a>
+                </p>
+                <p>
+                    Check out the github repository for the back-end{" "}
+                    <a href="https://github.com/henrypgill/todo-app-server">
+                        here
+                    </a>
+                </p>
+            </footer>
         </>
     );
 }
