@@ -1,5 +1,5 @@
 import { ToDoData } from "./ToDoData";
-import { compareStatus } from "./utils";
+import { compareStatus } from "../components/utils";
 
 export interface Action {
     id: number;

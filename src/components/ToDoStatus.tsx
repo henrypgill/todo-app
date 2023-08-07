@@ -1,5 +1,5 @@
-import { ToDoData } from "./ToDoData";
-import { Action } from "./reducer";
+import { ToDoData } from "../core/ToDoData";
+import { Action } from "../core/reducer";
 
 interface CompleteButtonProps {
     todo: ToDoData;

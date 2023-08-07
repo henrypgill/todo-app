@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { ToDoData } from "./ToDoData";
+import { ToDoData } from "../../core/ToDoData";
 import { useImmerReducer } from "use-immer";
-import { Action } from "./reducer";
-import { getNextServerTodoID } from "./serverUtils";
+import { Action } from "../../core/reducer";
+import { getNextServerTodoID } from "../../core/serverUtils";
 import { DatePicker, DatePickerDate } from "./DatePicker";
 
 interface NewToDoProps {
@@ -34,9 +34,6 @@ export function NewToDo({ handleDispatch }: NewToDoProps): JSX.Element {
                 break;
             case "description":
                 draftTodo.description = todoAction.value.description;
-                break;
-            case "due":
-                draftTodo.due = todoAction.value.due;
                 break;
             case "id":
                 draftTodo.id = todoAction.value.id;
@@ -90,7 +87,7 @@ export function NewToDo({ handleDispatch }: NewToDoProps): JSX.Element {
             type: "new-todo",
             value: { ...todo, id: todo.id + 1, due: newTodoDue },
         };
-        dispatchToDo(todoAction);
+        dispatchToDo({ ...todoAction, field: "reset" });
         handleDispatch(action); // error here
     }
 

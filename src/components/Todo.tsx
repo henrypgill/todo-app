@@ -1,6 +1,6 @@
-import { Action } from "./reducer";
+import { Action } from "../core/reducer";
 import { useState } from "react";
-import { ToDoData } from "./ToDoData";
+import { ToDoData } from "../core/ToDoData";
 import { formatDate } from "./utils";
 import { ToDoDescription } from "./ToDoDescription";
 import { ToDoStatus } from "./ToDoStatus";

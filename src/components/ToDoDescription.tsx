@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { ToDoData } from "./ToDoData";
-import { Action } from "./reducer";
+import { ToDoData } from "../core/ToDoData";
+import { Action } from "../core/reducer";
 import { ToDoEditing } from "./Todo";
 
 interface ToDoDescriptionProps {

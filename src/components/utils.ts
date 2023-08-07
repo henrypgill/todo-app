@@ -1,4 +1,4 @@
-import { ToDoData } from "./ToDoData";
+import { ToDoData } from "../core/ToDoData";
 
 export function compareStatus(a: ToDoData, b: ToDoData): 1 | -1 | 0 {
     if (a.status === b.status) {

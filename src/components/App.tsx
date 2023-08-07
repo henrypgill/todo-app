@@ -4,12 +4,12 @@ import "./styles/header.css";
 import "./styles/todos.css";
 import "./styles/new-todo.css";
 import { ToDo } from "./Todo";
-import { ToDoData } from "./ToDoData";
+import { ToDoData } from "../core/ToDoData";
 import { useImmerReducer } from "use-immer";
-import { Action, reducer } from "./reducer";
-import { getData } from "./serverUtils";
-import { dispatchHandler } from "./dispatchHandler";
-import { Header } from "./Header";
+import { Action, reducer } from "../core/reducer";
+import { getData } from "../core/serverUtils";
+import { dispatchHandler } from "../core/dispatchHandler";
+import { Header } from "./header_components/Header";
 
 function App() {
     const initialData: ToDoData[] = [];
