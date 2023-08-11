@@ -1,5 +1,5 @@
 import { ToDoData } from "./ToDoData";
-import { compareStatus } from "../components/utils";
+import { compareStatus } from "./utils";
 
 export interface Action {
     id: number;
@@ -23,12 +23,12 @@ export function reducer(draftState: ToDoData[], action: Action): void {
     switch (action.type) {
         case "complete":
             if (index !== -1) {
-                draftState[index].status = "complete";
+                draftState[index].status = true;
             }
             break;
         case "incomplete":
             if (index !== -1) {
-                draftState[index].status = "incomplete";
+                draftState[index].status = false;
             }
             break;
         case "delete":

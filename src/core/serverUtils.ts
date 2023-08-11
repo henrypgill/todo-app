@@ -2,11 +2,11 @@ import axios from "axios";
 import { ToDoData, ServerToDoData } from "./ToDoData";
 
 export async function getData(): Promise<ToDoData[]> {
-    const fetchURL = "https://todo-app-lgse.onrender.com/todos/";
+    // const fetchURL = "https://todo-app-lgse.onrender.com/todos/";
+    const fetchURL = "http://localhost:4000/todos";
     const response = await axios
         .get<ServerToDoData[]>(fetchURL)
         .then((response) => response.data);
-
     const returnData = response.map((todo) => {
         const formattedToDO: ToDoData = {
             // id: todo.id,
@@ -33,7 +33,8 @@ export async function getServerToDo(todo: ToDoData) {
 
 export async function deleteServerToDo(todo: ToDoData) {
     const fetchURL = `https://todo-app-lgse.onrender.com/todos/${todo.id}`;
-    const response = await axios.delete(fetchURL); //{id: `${todo.id}`}
+    console.log(fetchURL);
+    const response = await axios.delete(fetchURL);
 
     return response;
 }

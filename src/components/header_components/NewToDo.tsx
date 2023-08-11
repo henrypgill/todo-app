@@ -19,7 +19,7 @@ export function NewToDo({ handleDispatch }: NewToDoProps): JSX.Element {
         id: -1,
         title: "title",
         description: "description",
-        status: "incomplete",
+        status: false,
         created: new Date(),
         due: new Date(),
     };

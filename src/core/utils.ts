@@ -1,11 +1,11 @@
-import { ToDoData } from "../core/ToDoData";
+import { ToDoData } from "./ToDoData";
 
 export function compareStatus(a: ToDoData, b: ToDoData): 1 | -1 | 0 {
     if (a.status === b.status) {
         return 0;
-    } else if (a.status === "incomplete" && b.status === "complete") {
+    } else if (!a.status && b.status) {
         return -1;
-    } else if (a.status === "complete" && b.status === "incomplete") {
+    } else if (a.status && !b.status) {
         return 1;
     } else {
         return 0;
@@ -19,7 +19,7 @@ export function emptyToDo(): ToDoData {
         description: "To-Do: Description",
         created: new Date(),
         due: new Date(),
-        status: "incomplete",
+        status: false,
     };
     return emptyToDo;
 }

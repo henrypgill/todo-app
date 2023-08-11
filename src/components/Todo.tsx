@@ -1,7 +1,7 @@
 import { Action } from "../core/reducer";
 import { useState } from "react";
 import { ToDoData } from "../core/ToDoData";
-import { formatDate } from "./utils";
+import { formatDate } from "../core/utils";
 import { ToDoDescription } from "./ToDoDescription";
 import { ToDoStatus } from "./ToDoStatus";
 import { ToDoTitle } from "./ToDoTitle";
@@ -33,7 +33,7 @@ export function ToDo({ todo, handleDispatch }: ToDoProps): JSX.Element {
     function getTodoClassName() {
         const classNames: string[] = ["todo-card"];
         const cardShowing = showing ? "card-open" : "card-closed";
-        const cardStatus = `card-${todo.status}`;
+        const cardStatus = `card-${todo.status ? "complete" : "incomplete"}`;
 
         return [classNames, cardShowing, cardStatus].join(" ");
     }

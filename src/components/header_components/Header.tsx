@@ -1,6 +1,6 @@
 import { NewToDo } from "./NewToDo";
 import { Action } from "../../core/reducer";
-import { emptyToDo } from "../utils";
+import { emptyToDo } from "../../core/utils";
 
 interface HeaderProps {
     handleDispatch(action: Action): void;
