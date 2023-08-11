@@ -2,8 +2,8 @@ import axios from "axios";
 import { ToDoData, ServerToDoData } from "./ToDoData";
 
 export async function getData(): Promise<ToDoData[]> {
-    // const fetchURL = "https://todo-app-lgse.onrender.com/todos/";
-    const fetchURL = "http://localhost:4000/todos";
+    const fetchURL = "https://todo-app-lgse.onrender.com/todos/";
+    // const fetchURL = "http://localhost:4000/todos";
     const response = await axios
         .get<ServerToDoData[]>(fetchURL)
         .then((response) => response.data);
